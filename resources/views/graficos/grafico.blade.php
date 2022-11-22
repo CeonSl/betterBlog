@@ -34,9 +34,6 @@
                 });
             </script>
 
-            @php
-             include("asset('librerias\')")   
-            @endphp
 
             <script>
                 const ctx2 = document.getElementById('myChart2');
