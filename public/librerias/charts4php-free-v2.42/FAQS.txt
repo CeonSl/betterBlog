@@ -1,0 +1,8 @@
+To hide mode bar
+================
+	<script>
+	$(window).load(function(){
+	jQuery('.js-plotly-plot .plotly .modebar').hide();
+	});
+	</script>
+	
