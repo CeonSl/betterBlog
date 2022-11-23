@@ -20,7 +20,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('nivel_parametros.store') }}" method="POST">
+            <form action="{{ route('nivel_parametros.update', $nivel_parametro->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <label for="descripcion" class="label">Descripción:</label>
@@ -35,7 +35,7 @@
                     value="{{ $nivel_parametro->estado }}" placeholder="Estado">
 
                 <div class="boton flex justify-center my-5">
-                    <button type="submit" class="text-white ">Enviar</button>
+                    <button type="submit" class="text-white w-full">Enviar</button>
             </form>
         </div>
     </div>

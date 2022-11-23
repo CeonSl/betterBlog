@@ -12,7 +12,8 @@ module.exports = {
     theme: {
 
         fontFamily:{
-            'roboto':['Roboto Condensed']
+            'roboto':['Roboto Condensed'],
+            'Dancing' :['Dancing Script']
         },
 
         container: {

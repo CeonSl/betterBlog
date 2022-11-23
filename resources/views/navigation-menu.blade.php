@@ -1,12 +1,17 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+    <div class="max-w-full mx-auto ">
         <div class="flex justify-between h-16 ">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center ">
+                <div class="shrink-0 flex items-center ml-5 mr-14 ">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto " />
+                        <x-jet-application-mark class="block h-9 w-auto" />
+                    </a>
+                    <a href="{{ route('dashboard') }}" >
+                        <label for="" class="cursor-pointer"><strong
+                                class="text-red-400 pl-2 font-Dancing text-2xl">Valentine's</strong>
+                            <strong class="font-extralight font-Dancing text-2xl">Plus Size</strong></label>
                     </a>
                 </div>
 
@@ -16,50 +21,58 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     @role('Administrator')
-            <div class="ml-3 relative flex items-center">
-                <x-jet-dropdown align="right" width="48">
-                    <x-slot name="trigger">
+                        <div class="ml-3 relative flex items-center">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
 
-                        <span class="inline-flex rounded-md">
-                            <button type="button"
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                Gestión
+                                    <span class="inline-flex rounded-md">
+                                        <button type="button"
+                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                            Gestión
 
-                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </span>
-                    </x-slot>
+                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </x-slot>
 
-                    <x-slot name="content">
-                        <!-- Account Management -->
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('CRUD') }}
+                                    </div>
 
-                        <x-jet-dropdown-link href="{{ route('nivel_parametros.index') }}" :active="request()->routeIs('nivel_parametros.*')">
-                            {{ __('Nivel Parametro') }}
-                        </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('nivel_parametros.index') }}">
+                                        {{ __('Nivel Parametro') }}
+                                    </x-jet-dropdown-link>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Pruebas') }}
+                                    <x-jet-dropdown-link href="{{ route('clientes.index') }}">
+                                        {{ __('Cliente') }}
+                                    </x-jet-dropdown-link>
+
+
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Pruebas') }}
+                                    </div>
+
+                                    <x-jet-dropdown-link href="{{ route('graficos') }}">
+                                        {{ __('Gráficos') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('pruebas') }}">
+                                        {{ __('Pruebas tailwind') }}
+                                    </x-jet-dropdown-link>
+                                </x-slot>
+                            </x-jet-dropdown>
                         </div>
-
-                        <x-jet-dropdown-link href="{{ route('graficos') }}" :active="request()->routeIs('graficos')">
-                            {{ __('Gráficos') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('pruebas') }}" :active="request()->routeIs('pruebas')">
-                            {{ __('Pruebas tailwind') }}
-                        </x-jet-dropdown-link>
-                    </x-slot>
-                </x-jet-dropdown>
-            </div>
-            @endrole
+                    @endrole
                 </div>
             </div>
 
-            
+
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
@@ -201,9 +214,15 @@
                 <x-jet-responsive-nav-link href="{{ route('nivel_parametros.index') }}" :active="request()->routeIs('nivel_parametros.*')">
                     {{ __('Nivel Parametro') }}
                 </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="{{ route('clientes.index') }}" :active="request()->routeIs('clientes.*')">
+                    {{ __('Clientes') }}
+                </x-jet-responsive-nav-link>
+
                 <x-jet-responsive-nav-link href="{{ route('graficos') }}" :active="request()->routeIs('graficos')">
                     {{ __('Gráficos') }}
                 </x-jet-responsive-nav-link>
+
                 <x-jet-responsive-nav-link href="{{ route('pruebas') }}" :active="request()->routeIs('pruebas')">
                     {{ __('Pruebas tailwind') }}
                 </x-jet-responsive-nav-link>

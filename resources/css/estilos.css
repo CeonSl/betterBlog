@@ -1,6 +1,6 @@
 
 .table {
-    @apply w-full
+    @apply  sm:w-1/12 lg:w-full 
 }
 
 .table th, .table td {
@@ -28,7 +28,7 @@
 }
 
 .jumbotron {
-    @apply  bg-gray-100 p-10 m-5 rounded-md shadow;
+    @apply  bg-gray-50 p-10 m-5 rounded-md shadow;
 }
 
 .textarea {

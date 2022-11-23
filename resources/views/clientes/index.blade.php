@@ -1,52 +1,60 @@
 @role('Administrator')
-    @section('title', 'Nivel Parámetro')
+    @section('title', 'Cliente')
     <x-app-layout>
         <div class="container ">
             <div class="jumbotron mt-10">
                 <div>
                     <div class="my-5">
-                        <h2 class="titulo">Listado de Parámetros</h2>
+                        <h2 class="titulo">Listado de Clientes</h2>
                         <div class="boton">
-                            <a class="text-white" href="{{ route('nivel_parametros.create') }}"> Crear nuevo parámetro</a>
+                            <a class="text-white" href="{{ route('clientes.create') }}"> Crear nuevo cliente</a>
                         </div>
                     </div>
                 </div>
 
                 @if ($message = Session::get('success'))
-                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3">
-                        <p class="text-sm">{{ $message }}</p>
+                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 my-5">
+                        <p class="text-md">{{ $message }}</p>
                     </div>
                 @endif
 
-                <table class="table table-bordered mt-3">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Descripción</th>
-                            <th>Tipo</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
                             <th>Estado</th>
                             <th width="280px">Opciones</th>
                         </tr>
                     </thead>
-                    @foreach ($nivel_parametros as $nivel_parametro)
+                    @foreach ($clientes as $cliente)
                         <tbody>
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $nivel_parametro->descripcion }}</td>
-                                <td>{{ $nivel_parametro->tipo }}</td>
-                                <td>{{ $nivel_parametro->estado }}</td>
+                                <td>{{ $cliente->nombres }}</td>
+                                <td>{{ $cliente->apellidos }}</td>
+                                <td>{{ isset($cliente->genero_id) ? $generos->get('descripcion', $generos->find($cliente->genero_id)->descripcion) : '' }}
+                                </td>
+                                <td>{{ $cliente->direccion }}</td>
+                                <td>{{ $cliente->telefono }}</td>
+                                <td>{{ $cliente->correo }}</td>
+                                <td>{{ $cliente->estado }}</td>
                                 <td>
-                                    <form action="{{ route('nivel_parametros.destroy', $nivel_parametro->id) }}"
-                                        method="POST">
+                                    <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
 
                                         <div class="flex justify-around">
                                             <a class="boton-info h-10 w-10 flex-1"
-                                                href="{{ route('nivel_parametros.show', $nivel_parametro->id) }}">
+                                                href="{{ route('clientes.show', $cliente->id) }}">
                                                 <img class="px-5" src="{{ asset('img/acercarse.png') }}"
                                                     alt=""></a>
 
                                             <a class="boton-edit h-10 w-10 flex-1 mx-2"
-                                                href="{{ route('nivel_parametros.edit', $nivel_parametro->id) }}">
+                                                href="{{ route('clientes.edit', $cliente->id) }}">
                                                 <img class="px-5" src="{{ asset('img/editar.png') }}" alt="">
                                             </a>
 
@@ -66,7 +74,7 @@
                 <div class="boton my-5">
                     <a class="text-white" href="/dashboard">Volver</a>
                 </div>
-                    {!! $nivel_parametros->links() !!}
+                {!! $clientes->links() !!}
             </div>
         </div>
 

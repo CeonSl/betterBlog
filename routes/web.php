@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\NivelParametroController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.register');
 });
 
 Route::middleware([
@@ -27,13 +28,28 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     
-    Route::resource('nivel_parametros', NivelParametroController::class);
-
     Route::get('pruebas', function () {
         return view('pruebas.prueba');
     })->name('pruebas');
-    
+
     Route::get('graficos', function () {
         return view('graficos.grafico');
     })->name('graficos');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::resource('nivel_parametros', NivelParametroController::class)->names('nivel_parametros');
+});
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::resource('clientes', ClienteController::class)->names('clientes');
 });
