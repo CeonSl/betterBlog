@@ -1,4 +1,5 @@
 @role('Administrator')
+@section('title', 'Nivel Parámetro')
 <x-app-layout>
 
     <div class="container">

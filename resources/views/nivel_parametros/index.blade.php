@@ -1,4 +1,6 @@
+
 @role('Administrator')
+@section('title', 'Nivel Parámetro')
 <x-app-layout>
         <div class="container ">
             <div class="jumbotron mt-10">
