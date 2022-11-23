@@ -54,6 +54,9 @@
                                         {{ __('Cliente') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('ropas.index') }}">
+                                        {{ __('Ropas') }}
+                                    </x-jet-dropdown-link>
 
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('Pruebas') }}
