@@ -47,7 +47,8 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        return view('clientes.show', compact('cliente'));
+        $generos = NivelParametro::where('tipo','Genero')->get();
+        return view('clientes.show', compact('cliente','generos'));
     }
 
 

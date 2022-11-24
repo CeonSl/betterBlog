@@ -1,6 +1,6 @@
 @role('Administrator')
     @section('title', 'Cliente')
-    <x-app-layout>
+    <x-admin-layout>
 
         <div class="container  pb-10">
             <div class="jumbotron ">

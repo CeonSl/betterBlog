@@ -1,6 +1,6 @@
 @role('Administrator')
 @section('title', 'Nivel Parámetro')
-<x-app-layout>
+<x-admin-layout>
 
     <div class="container">
         <div class="jumbotron">

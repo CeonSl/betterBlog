@@ -14,5 +14,6 @@ class Ropa extends Model
         'tipoColor_id'
     ];
 
+
     use HasFactory;
 }

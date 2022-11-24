@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NivelParametroController;
 use App\Http\Controllers\RopaController;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.register');
+
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
 });
 
 Route::middleware([
@@ -25,20 +34,19 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin/dashboard');
+    
     Route::get('pruebas', function () {
         return view('pruebas.prueba');
     })->name('pruebas');
-
+    
     Route::get('graficos', function () {
         return view('graficos.grafico');
     })->name('graficos');
     
-    Route::resource('ropas', RopaController::class)->names('ropas');
-    Route::resource('nivel_parametros', NivelParametroController::class)->names('nivel_parametros');
-    Route::resource('clientes', ClienteController::class)->names('clientes');
-
+    Route::resource('/nivel_parametros', NivelParametroController::class);
+    Route::resource('/clientes', ClienteController::class);
+    Route::resource('/ropas', RopaController::class);
 });

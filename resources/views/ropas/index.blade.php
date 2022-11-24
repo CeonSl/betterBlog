@@ -1,19 +1,20 @@
 @role('Administrator')
     @section('title', 'Ropa')
-    <x-app-layout>
-        <div class="container ">
+    <x-admin-layout>
+        <div class="container pb-10">
             <div class="jumbotron mt-10">
                 <div>
-                    <div class="my-5">
+                    <div class="my-5 ">
                         <h2 class="titulo">Listado de Ropas</h2>
-                        <div class="boton">
-                            <a class="text-white" href="{{ route('ropas.create') }}"> Crear ropa</a>
-                        </div>
+                        
+                    </div>
+                    <div class="boton col-span-2">
+                        <a class="text-white" href="{{ route('ropas.create') }}"> Crear ropa</a>
                     </div>
                 </div>
 
                 @if ($message = Session::get('success'))
-                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3">
+                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-4 my-5">
                         <p class="text-sm">{{ $message }}</p>
                     </div>
                 @endif
@@ -36,16 +37,20 @@
                         <tbody>
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $ropa->prenda}}</td>
-                                <td>{{ isset($ropa->tipoColor_id) ? $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) : ''}}</td>
-                                <td>{{ $ropa->stock}}</td>
+                                <td>{{ $ropa->prenda }}</td>
+                                <td>{{ isset($ropa->tipoColor_id) ? $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) : '' }}
+                                </td>
+                                <td>{{ $ropa->stock }}</td>
                                 <td>{{ $ropa->precio }}</td>
-                                <td>{{ $ropa->talla }}</td>
+                                <td>{{ isset($ropa->talla) ? $tallas->get('descripcion',$ropa->talla) : '' }}</td>
                                 <td>{{ $ropa->estado }}</td>
-                                <td>{{ $ropa->imagenRef}}</td>
                                 <td>
-                                    <form action="{{ route('ropas.destroy', $ropa->id) }}"
-                                        method="POST">
+                                    <div class="flex justify-around ">
+                                        <img src="{{ Storage::url($ropa->imagenRef) }}" class="border-gray-500 border-2" width="150px" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <form action="{{ route('ropas.destroy', $ropa->id) }}" method="POST">
 
                                         <div class="flex justify-around">
                                             <a class="boton-info h-10 w-10 flex-1"
@@ -74,9 +79,9 @@
                 <div class="boton my-5">
                     <a class="text-white" href="/dashboard">Volver</a>
                 </div>
-                    {!! $ropas->links() !!}
+                {!! $ropas->links() !!}
             </div>
         </div>
 
-    </x-app-layout>
+    </x-admin-layout>
 @endrole

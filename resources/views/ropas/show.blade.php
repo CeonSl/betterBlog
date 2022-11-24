@@ -1,43 +1,61 @@
 @role('Administrator')
-@section('title', 'Nivel Parámetro')
-<x-app-layout>
-    <div class="container">
-        <div class="jumbotron">
+    @section('title', 'Ropa')
+    <x-admin-layout>
+        <div class="container pb-10">
+            <div class="jumbotron">
 
-            <div class="titulo">
-                <h2> Mostrar Parámetro</h2>
-            </div>
+                <div class="titulo">
+                    <h2> Mostrar Ropa</h2>
+                </div>
+                <div class="my-6 relative">
+                    <figure>
+                        <img src="{{ Storage::url($ropa->imagenRef) }}"
+                            class="aspect-[16/9] w-full object-contain object-left">
+                    </figure>
+                </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <label for="descripcion" class="label">Descripción:</label>
-                        <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
-                            {{ $nivel_parametro->descripcion }}
-                        </div>
-                    </div>
+                <label class="label">Prenda:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    {{ $ropa->prenda }}
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <label for="descripcion" class="label">Tipo:</label>
-                        <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
-                            {{ $nivel_parametro->tipo }}
-                        </div>
-                    </div>
+
+                <label class="label">Color:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    @foreach ($colors as $color)
+                        @if ($color['id'] == $ropa->tipoColor_id)
+                            {{ $color['descripcion'] }}
+                        @endif
+                    @endforeach
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <label for="descripcion" class="label">Estado:</label>
-                        <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
-                            {{ $nivel_parametro->estado }}
-                        </div>
-                    </div>
+
+                <label class="label">Stock:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    {{ $ropa->stock }}
                 </div>
-            </div>
-            <div class="boton mt-2">
-                <a class="text-white" href="{{ route('nivel_parametros.index') }}"> Volver</a>
+
+                <label class="label">Precio:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    {{ $ropa->precio }}
+                </div>
+
+                <label class="label">Talla:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    @foreach ($tallas as $talla)
+                        @if ($talla['id'] == $ropa->talla)
+                            {{ $talla['descripcion'] }}
+                        @endif
+                    @endforeach
+                </div>
+
+                <label class="label">Estado:</label>
+                <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
+                    {{ $ropa->estado }}
+                </div>
+
+                <div class="boton mt-2">
+                    <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>
+                </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+    </x-admin-layout>
 @endrole

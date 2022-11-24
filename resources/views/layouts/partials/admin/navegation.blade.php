@@ -1,31 +1,36 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow sticky top-0 z-10">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100  sticky top-0 z-10 shadow-lg">
     <!-- Primary Navigation Menu -->
     <div class="max-w-full mx-auto">
         <div class="flex justify-between h-16 ">
             <div class="flex">
+
+                <div class="ml-4  items-center hidden lg:flex ">
+                    <button @click="openSidebar = ! openSidebar" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+                        </svg>
+                    </button>
+                </div>
+
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center ml-5 mr-14 ">
+                <div class="shrink-0 flex items-center ml-5 mr-14 lg:hidden">
                     <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                     <a href="{{ route('dashboard') }}">
                         <label for="" class="cursor-pointer"><strong
                                 class="text-red-400 pl-2 font-Dancing text-2xl">Valentine's</strong>
-                            <strong class="font-extralight font-Dancing text-2xl">Plus Size</strong></label>
+                            <strong class="font-extralight font-Dancing text-2xl">Plus
+                                Size</strong></label>
                     </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                
                 </div>
             </div>
 
 
-            
+
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
@@ -81,18 +86,17 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
-                <a href="" ><i class="fa-sharp fa-solid fa-cart-shopping fa-lg hover:opacity-70 transition-all"></i></a>
-               
+
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
-                    
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
-                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                        src="{{ Auth::user()->profile_photo_url }}"
+                                        alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
@@ -133,7 +137,8 @@
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
-                                <x-jet-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                    @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
@@ -143,15 +148,16 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div class="-mr-2 flex items-center lg:hidden">
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -159,7 +165,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @role('Administrator')
                 <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -188,7 +194,8 @@
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
+                        <img class="h-10 w-10 rounded-full object-cover"
+                            src="{{ Auth::user()->profile_photo_url }}"
                             alt="{{ Auth::user()->name }}" />
                     </div>
                 @endif
@@ -215,7 +222,8 @@
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                        @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
                 </form>
@@ -229,8 +237,8 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
-                        :active="request()->routeIs('teams.show')">
+                    <x-jet-responsive-nav-link
+                        href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
                         {{ __('Team Settings') }}
                     </x-jet-responsive-nav-link>
 

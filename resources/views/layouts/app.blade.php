@@ -29,6 +29,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"></script>
+    <script src="https://kit.fontawesome.com/27763c0bc0.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
     @livewireStyles
