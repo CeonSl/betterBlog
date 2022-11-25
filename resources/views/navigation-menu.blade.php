@@ -22,6 +22,13 @@
                     </x-jet-nav-link>
                 
                 </div>
+
+               
+                <div class="space-x-8 -my-px ml-10 flex  {{request()->routeIs('payment') ? 'hidden lg:flex' : 'hidden '}}">
+                    <x-jet-nav-link href="{{ route('payment') }}" :active="request()->routeIs('payment')">
+                        {{ __('Payment') }}
+                    </x-jet-nav-link>
+                </div>
             </div>
 
 

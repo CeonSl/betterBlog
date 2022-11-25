@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NivelParametroController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RopaController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
+    Route::get('payment/{id?}', [ PaymentController::class, 'index'])->name('payment');
+
+    Route::get('payment/{id?}', [ PaymentController::class, 'show'])->name('payment.show');
 });
 
 Route::middleware([

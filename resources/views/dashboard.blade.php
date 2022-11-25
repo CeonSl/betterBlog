@@ -20,7 +20,7 @@
                             </div>
                         </button>
                         <div class="flex  py-4 px-16">
-                            <a href="" class="boton flex-1 text-center text-white">Comprar</a>
+                            <a href="{{ route('payment',$ropa->id) }}" class="boton flex-1 text-center text-white">Comprar</a>
                         </div>
                         
                     </div>

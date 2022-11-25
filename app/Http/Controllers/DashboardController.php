@@ -19,8 +19,4 @@ class DashboardController extends Controller
         return view('dashboard', compact('ropas','colors','tallas'));
     }
 
-    public function Comprar()
-    {
-        
-    }
 }
