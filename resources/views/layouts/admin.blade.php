@@ -18,14 +18,13 @@
         </style>
         <title>@yield('title')</title>
         <link rel="shortcut icon" href="{{ asset('img/moda.png') }}">
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
         <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-        <script type="text/javascript"
-            src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,8 +45,8 @@
             $links = [
                 [
                     'title' => 'Parámetros',
-                    'url' => route('nivel_parametros.index'),
-                    'active' => request()->routeIs('nivel_parametros.*'),
+                    'url' => route('nivel_parametros/index'),
+                    'active' => request()->routeIs('cliente.*'),
                     'icon' => 'fa-regular fa-folder-open',
                 ],
                 [
@@ -65,7 +64,7 @@
             ];
         @endphp
 
-        <div class="flex "  x-data="{ open: false, openSidebar: true }" x-transition:enter.scale.80 x-transition:leave.scale.90>
+        <div class="flex " x-data="{ open: false, openSidebar: true }" x-transition:enter.scale.80 x-transition:leave.scale.90>
             <div :class="{ 'lg:block': openSidebar, }" class="w-64 flex-shrink-0 hidden lg:block">
 
                 @include('layouts.partials.admin.sidebar')

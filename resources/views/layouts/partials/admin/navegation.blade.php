@@ -171,9 +171,9 @@
                 <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('nivel_parametros.index') }}" :active="request()->routeIs('nivel_parametros.*')">
+                {{-- <x-jet-responsive-nav-link href="{{ route('nivel_parametros.index') }}" :active="request()->routeIs('nivel_parametros.*')">
                     {{ __('Nivel Parametro') }}
-                </x-jet-responsive-nav-link>
+                </x-jet-responsive-nav-link> --}}
 
                 <x-jet-responsive-nav-link href="{{ route('clientes.index') }}" :active="request()->routeIs('clientes.*')">
                     {{ __('Clientes') }}

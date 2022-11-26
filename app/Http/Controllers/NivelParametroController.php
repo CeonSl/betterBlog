@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\NivelParametro;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class NivelParametroController extends Controller
 {
     public function index()
     {
-        $nivel_parametros = NivelParametro::latest()->paginate(5);
+        return view('nivel_parametros/index');
+    }
+
+    public function getJson()
+    {
         $nivel_parametrosJson = json_encode(NivelParametro::all());
-        
-        return view('nivel_parametros.index', compact('nivel_parametros','nivel_parametrosJson'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        return response()->json($nivel_parametrosJson, 200);
     }
 
     public function create()
@@ -23,7 +27,7 @@ class NivelParametroController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'descripcion' => 'required',
             'tipo' => 'required',
@@ -33,7 +37,7 @@ class NivelParametroController extends Controller
         NivelParametro::create($request->all());
 
         return redirect()->route('nivel_parametros.index')
-        ->with('success', 'Parametro creado satisfactoriamente.');
+            ->with('success', 'Parametro creado satisfactoriamente.');
     }
 
     public function show(NivelParametro $nivel_parametro)
@@ -61,11 +65,13 @@ class NivelParametroController extends Controller
             ->with('success', 'Parametro actualizado satisfactoriamente.');
     }
 
-    public function destroy(NivelParametro $nivel_parametro)
-    {
+    public function destroy($id)
+    { 
+        $nivel_parametro = NivelParametro::find($id);
         $nivel_parametro->delete();
+       
 
-        return redirect()->route('nivel_parametros.index')
+        return redirect()->route('nivel_parametros/index')
             ->with('success', 'Parametro eliminado satisfactoriamente.');
     }
 }

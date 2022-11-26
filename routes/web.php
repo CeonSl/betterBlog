@@ -28,9 +28,9 @@ Route::middleware([
 ])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('payment/{id?}', [ PaymentController::class, 'index'])->name('payment');
+    Route::get('payment/{id?}', [PaymentController::class, 'index'])->name('payment');
 
-    Route::get('payment/{id?}', [ PaymentController::class, 'show'])->name('payment.show');
+    Route::get('payment/{id?}', [PaymentController::class, 'show'])->name('payment.show');
 });
 
 Route::middleware([
@@ -41,16 +41,27 @@ Route::middleware([
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin/dashboard');
-    
+
     Route::get('pruebas', function () {
         return view('pruebas.prueba');
     })->name('pruebas');
-    
+
     Route::get('graficos', function () {
         return view('graficos.grafico');
     })->name('graficos');
-    
-    Route::resource('/nivel_parametros', NivelParametroController::class);
+
+
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/ropas', RopaController::class);
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+
+    Route::get('nivel_parametros/index', [NivelParametroController::class, 'index'])->name('nivel_parametros/index');
+    Route::get('nivel_parametros/indexAll', [NivelParametroController::class, 'getJson'])->name('nivel_parametros/indexAll');
+    Route::get('nivel_parametros/delete/{id}', [NivelParametroController::class, 'destroy']);
 });

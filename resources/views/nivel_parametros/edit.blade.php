@@ -1,4 +1,4 @@
-@role('Administrator')
+{{-- @role('Administrator')
 @section('title', 'Nivel Parámetro')
 <x-admin-layout>
     <div class="container">
@@ -7,7 +7,7 @@
                 <h2 class="titulo">Editar Parámetro</h2>
             </div>
             <div class="boton">
-                <a class="text-white" href="{{ route('nivel_parametros.index') }}"> Volver</a>
+                <a class="text-white" href="{{ route('nivel_parametros/index') }}"> Volver</a>
             </div>
 
             @if ($errors->any())
@@ -40,4 +40,4 @@
         </div>
     </div>
 </x-app-layout>
-@endrole
+@endrole --}}

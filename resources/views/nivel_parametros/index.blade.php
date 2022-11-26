@@ -8,12 +8,92 @@
                     <div>
                         <div class="my-5">
                             <h2 class="titulo">Listado de Parámetros</h2>
-                            <div class="boton">
+                            {{-- <div class="boton">
                                 <a class="text-white" href="{{ route('nivel_parametros.create') }}"> Crear nuevo parámetro</a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
+                    <p class="boton">
+                        <a href="#" class="text-white" onclick="clickCargar()">Cargar Parámetros</a>
+                    </p>
+                    <div id="table"></div>
+                    <script>
+                        function clickCargar() {
+                            $.get("indexAll", function(data, status) {
+                                // alert("Data: " + data + "\nStatus: " + status);
+
+                                var obj = JSON.parse(data);
+                                console.log(obj);
+                                if (status == "success") {
+                                    var tabla = crearTabla(obj);
+                                    $("#table").html(tabla);
+                                } else {
+                                    alert("Error:" + success);
+                                }
+                            });
+                        }
+                        $(document).ready(function() {
+                                $().load("indexAll", function(data, status) {
+                                // alert("Data: " + data + "\nStatus: " + status);
+
+                                var obj = JSON.parse(data);
+                                console.log(obj);
+                                if (status == "success") {
+                                    console.log(status)
+                                    var tabla = crearTabla(obj);
+                                    $("#table").html(tabla);
+                                } else {
+                                    alert("Error:" + success);
+                                }
+                            });
+                        });
+
+                        function tabla() {
+                            return ' <table class="table table-bordered mt-3"><thead> <tr><th>No</th> <th>Descripción</th> <th>Tipo</th><th>Estado</th><th width="280px">Opciones</th> </tr></thead>';
+                        }
+
+                        function crearTabla(obj) {
+                            var tblContenido = crearRegistros(obj);
+                            return tabla() + tblContenido + "</table>";
+
+                        }
+
+
+
+                        function crearRegistros(obj) {
+                            var contenido = "";
+
+                            $.each(obj, function(key, value) {
+                                if (value.id == null) {
+
+                                } else {
+                                    var i = 0;
+                                    i++;
+                                    contenido += '<tbody><tr><td>' + value.id + '</td><td>' + value.descripcion + '</td><td>' +
+                                        value.tipo + '</td><td>' + value.estado + '</td>' + '<td>' + crearBotones(value.id) +
+                                        '</td></tr></tbody>';
+
+                                }
+                            });
+                            return contenido;
+                        }
+
+
+                        function crearBotones(id) {
+                            console.log(id);
+
+                            return ` <form action="{{ url('nivel_parametros/delete/`+id+`') }}" method="GET">` +
+                                '<div class="flex justify-around">' +
+                                '<a class="boton-info h-10 w-10 flex-1" href="">' +
+                                '<img class="px-5" src = "{{ asset('img/acercarse.png') }}" alt = ""></a>' +
+                                '<a class = "boton-edit h-10 w-10 flex-1 mx-2"href = "" ><img class = "px-5" src = "{{ asset('img/editar.png') }}" alt = "" ></a>' +
+                                '@csrf' +
+                                '<button type = "submit" class = "boton-eliminar bg-red-400 h-10 w-10 flex-1">' +
+                                '<img class = "px-5" src = "{{ asset('img/eliminar.png') }}" alt = "" > </button> </div> </form>';
+                        }
+                    </script>
+                    {{-- 
                     @if ($message = Session::get('success'))
                         <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3">
                             <p class="text-sm">{{ $message }}</p>
@@ -67,9 +147,9 @@
                     </table>
                     <div class="boton my-5">
                         <a class="text-white" href="/dashboard">Volver</a>
-                    </div>
+                    </div> --}}
                 </div>
-                {!! $nivel_parametros->links() !!}
+                {{-- {!! $nivel_parametros->links() !!} --}}
 
                 <script>
                     function data() {
@@ -89,7 +169,7 @@
                     }
                 </script>
 
-                <div x-data="data()" x-init="start()" x-transition>
+                {{-- <div x-data="data()" x-init="start()" x-transition>
                     <div :hidden="open" class="boton my-5" x-transition @click="isOpen()">
                         <a class="text-white transition-all duration-300">Gráficos</a>
                     </div>
@@ -175,7 +255,7 @@
 
                     </div>
 
-                </div>
+                </div> --}}
             </div>
         </div>
 
