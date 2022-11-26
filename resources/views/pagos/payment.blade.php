@@ -13,7 +13,7 @@
         // Crea un ítem en la preferencia
         $item = new MercadoPago\Item();
         $item->id = $ropa->id;
-        $item->title = $ropa->prenda . ' ' . $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) . ' ' . $tallas->get('descripcion', $tallas->find($ropa->talla)->descripcion);
+        $item->title = $ropa->prenda . ' ' . $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) . ' ' . $tallas->get('descripcion', $ropa->talla);
         $item->quantity = 1;
         $item->unit_price = $ropa->precio;
         $preference->items = [$item];
@@ -35,7 +35,7 @@
                         <label class="block text-justify pl-5 pt-3"> Color: <strong>
                                 {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}</strong></label>
                         <label class="block text-justify pl-5 pt-3"> Talla: <strong>
-                                {{ $tallas->get('descripcion', $tallas->find($ropa->talla)->descripcion) }}</strong></label>
+                                {{ $tallas->get('descripcion', $tallas->get('descripcion', $ropa->talla)) }}</strong></label>
 
                     </div>
 

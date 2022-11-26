@@ -12,16 +12,11 @@ class NivelParametroController extends Controller
         $nivel_parametros = NivelParametro::latest()->paginate(5);
 
 
-        return view('nivel_parametros.index', compact('nivel_parametros', 'nivel_parametrosJson'))
+        return view('nivel_parametros.index', compact('nivel_parametros'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    public function getJson()
-    {
-        $nivel_parametrosJson = json_encode(NivelParametro::all());
 
-        return response()->json($nivel_parametrosJson,200);
-    }
 
     public function create()
     {

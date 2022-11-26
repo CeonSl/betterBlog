@@ -5,7 +5,7 @@
             <div class="jumbotron">
 
                 <div class="titulo">
-                    <h2> Mostrar Ropa</h2>
+                    <h2> Mostrar Prenda</h2>
                 </div>
                 <div class="my-6 relative">
                     <figure>

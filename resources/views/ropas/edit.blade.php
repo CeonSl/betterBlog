@@ -4,7 +4,7 @@
         <div class="container">
             <div class="jumbotron">
                 <div class="my-5">
-                    <h2 class="titulo">Editar Ropa</h2>
+                    <h2 class="titulo">Editar Prenda</h2>
                 </div>
                 <div class="boton">
                     <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>

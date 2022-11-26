@@ -28,8 +28,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('payment/{id?}', [ PaymentController::class, 'index'])->name('payment');
-
+   
     Route::get('payment/{id?}', [ PaymentController::class, 'show'])->name('payment.show');
 });
 
@@ -38,6 +37,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+
+    Route::get('payment/{id?}', [ PaymentController::class, 'index'])->name('payment');
+
+
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin/dashboard');
@@ -51,7 +54,9 @@ Route::middleware([
     })->name('graficos');
     
     Route::resource('/nivel_parametros', NivelParametroController::class);
-    Route::get('nivel_parametros/indexJson', [NivelParametroController::class, 'getJson']);
+    Route::get('prendas/indexAll', [RopaController::class, 'getJson'])->name('prendas/indexAll');
+    Route::get('parametros/indexAll', [RopaController::class, 'getJsonParametros'])->name('parametros/indexAll');
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/ropas', RopaController::class);
+    Route::get('prenda/pdf', [RopaController::class,'generarPdf'])->name('prenda/pdf');
 });

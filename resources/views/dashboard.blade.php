@@ -3,27 +3,31 @@
     <div class="header">
         <div class="w-full h-screen bg-gradient-to-br from-red-200 via-white to-blue-200 p-10">
             <div>
-                <h1 class="titulo flex justify-center jumbotron mt-0">Lista de Productos</h1>
+                <h1 class="titulo flex justify-center jumbotron ">Lista de Productos</h1>
             </div>
-            <div class="grid grid-cols-4 justify-around">
+            <div class="grid grid-cols-5 ">
                 @foreach ($ropas as $ropa)
-                    <div class="jumbotron p-2 pb-5 w-96 hover:opacity-90 hover:-my-0 transition-all">
-                        <button class="p-0">
+                <div class="jumbotron p-3 hover:opacity-90 hover:-my-2 transition-all ">
+                    <div class=" h-full w-70  ">
 
-                            <div>
-                                <img src="{{ Storage::url($ropa->imagenRef) }}" class="mb-4" alt="">
-                                <label class="font-extralight flex justify-start pl-4">{{ $ropa->prenda }}
-                                    {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}
-                                    {{ $tallas->get('descripcion', $tallas->find($ropa->talla)->descripcion) }}</label>
-                                <label class="font-extralight flex justify-center text-3xl pt-4 ">S/.{{$ropa->precio}}</label>
-                
-                            </div>
-                        </button>
-                        <div class="flex  py-4 px-16">
-                            <a href="{{ route('payment',$ropa->id) }}" class="boton flex-1 text-center text-white">Comprar</a>
+                        <img src="{{ Storage::url($ropa->imagenRef) }}"
+                            class="h-72 w-72 object-contain ml-0.5"
+                            alt="">
+                        <label class="font-extralight block text-center pt-3">{{ $ropa->prenda }}
+                            {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}
+                            {{ $tallas->get('descripcion', $ropa->talla) }}</label>
+
+                        <label
+                            class="font-extralight  text-3xl block pt-2 text-center">S/.{{ $ropa->precio }}</label>
+
+                        <div class="flex justify-center mx-5 pt-5">
+                            <a href="{{ route('payment', $ropa->id) }}"
+                                class="boton flex-1 text-center text-white">Comprar</a>
                         </div>
-                        
-                    </div>
+
+                </div>
+                </div>
+                    
                 @endforeach
             </div>
         </div>

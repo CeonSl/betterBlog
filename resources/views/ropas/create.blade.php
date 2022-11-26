@@ -5,7 +5,7 @@
         <div class="container pb-10">
             <div class="jumbotron ">
                 <div class="my-5">
-                    <h2 class="titulo">Agregar nueva Ropa</h2>
+                    <h2 class="titulo">Agregar Nueva Prenda</h2>
                 </div>
                 <div class="boton">
                     <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>
@@ -79,7 +79,7 @@
                     <select name="talla" id=""
                         class="input p-2 text-lg text-gray-900 rounded-lg border border-gray-300 ">
                         @foreach ($tallas as $talla)
-                            <option value="{{ $talla['id'] }}">{{ $talla['descripcion'] }}</option>
+                            <option value="{{ $talla['descripcion'] }}">{{ $talla['descripcion'] }}</option>
                         @endforeach
                     </select>
 

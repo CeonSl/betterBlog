@@ -31,7 +31,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"></script>
         <script src="https://kit.fontawesome.com/27763c0bc0.js" crossorigin="anonymous"></script>
-
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
         <!-- Styles -->
         @livewireStyles
 
@@ -65,7 +65,7 @@
             ];
         @endphp
 
-        <div class="flex "  x-data="{ open: false, openSidebar: true }" x-transition:enter.scale.80 x-transition:leave.scale.90>
+        <div class="flex " x-data="{ open: false, openSidebar: true }" x-transition:enter.scale.80 x-transition:leave.scale.90>
             <div :class="{ 'lg:block': openSidebar, }" class="w-64 flex-shrink-0 hidden lg:block">
 
                 @include('layouts.partials.admin.sidebar')

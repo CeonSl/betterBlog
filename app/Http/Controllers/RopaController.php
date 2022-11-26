@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NivelParametro;
 use App\Models\Ropa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,12 @@ class RopaController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+   
+    public function getJsonParametros(){
+        $parametrosJson = json_encode(NivelParametro::all());
+
+        return response()->json($parametrosJson, 200);
+    }
     public function create()
     {
 
@@ -109,4 +116,20 @@ class RopaController extends Controller
         return redirect()->route('ropas.index')
             ->with('success', 'Ropa eliminada satisfactoriamente.');
     }
+
+    public function getJson()
+    {
+        $prendasJson = json_encode(Ropa::all());
+
+        return response()->json($prendasJson, 200);
+    }
+
+    public function generarPdf(){
+        $ropas = Ropa::all();
+        $colors = NivelParametro::where('tipo', 'Color')->get();
+        $tallas = NivelParametro::where('tipo', 'Talla')->get();
+        $pdf = Pdf::loadView('ropas.generarPDF', compact('ropas','colors','tallas'));
+        return $pdf->setPaper('a4', 'landscape')->stream('Prendas Registradas.pdf');
+    }
+
 }

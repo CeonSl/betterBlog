@@ -71,9 +71,7 @@
                         </tbody>
                     @endforeach
                 </table>
-                <div class="boton my-5">
-                    <a class="text-white" href="/dashboard">Volver</a>
-                </div>
+
                 {!! $clientes->links() !!}
             </div>
         </div>
