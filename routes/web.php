@@ -51,6 +51,7 @@ Route::middleware([
     })->name('graficos');
     
     Route::resource('/nivel_parametros', NivelParametroController::class);
+    Route::get('nivel_parametros/indexJson', [NivelParametroController::class, 'getJson']);
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/ropas', RopaController::class);
 });

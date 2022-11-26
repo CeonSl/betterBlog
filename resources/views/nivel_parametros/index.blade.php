@@ -104,10 +104,8 @@
                             </div>
 
                             <script>
-                                $.ajax({
-                                    url:'http://127.0.0.1:8000/nivel_parametros',
-                                    method: 'POST',
-                                    data:{}
+                                $.get("/indexJson", function(data,status) {
+                                    var obj = JSON.parse(data);
                                 })
                                 var arreglo = JSON.parse({{ $nivel_parametrosJson }});
                                 console.log(arreglo);
