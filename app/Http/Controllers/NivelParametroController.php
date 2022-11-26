@@ -10,10 +10,17 @@ class NivelParametroController extends Controller
     public function index()
     {
         $nivel_parametros = NivelParametro::latest()->paginate(5);
-        $nivel_parametrosJson = json_encode(NivelParametro::all());
-        
-        return view('nivel_parametros.index', compact('nivel_parametros','nivel_parametrosJson'))
+
+
+        return view('nivel_parametros.index', compact('nivel_parametros', 'nivel_parametrosJson'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function getJson()
+    {
+        $nivel_parametrosJson = json_encode(NivelParametro::all());
+
+        return response()->json($nivel_parametrosJson,200);
     }
 
     public function create()
@@ -23,7 +30,7 @@ class NivelParametroController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'descripcion' => 'required',
             'tipo' => 'required',
@@ -33,7 +40,7 @@ class NivelParametroController extends Controller
         NivelParametro::create($request->all());
 
         return redirect()->route('nivel_parametros.index')
-        ->with('success', 'Parametro creado satisfactoriamente.');
+            ->with('success', 'Parametro creado satisfactoriamente.');
     }
 
     public function show(NivelParametro $nivel_parametro)
