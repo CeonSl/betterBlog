@@ -41,7 +41,7 @@
                 <label class="label">Talla:</label>
                 <div class="bg-gray-50 border border-gray-300 rounded-md p-2">
                     @foreach ($tallas as $talla)
-                        @if ($talla['id'] == $ropa->talla)
+                        @if ($talla['descripcion'] == $ropa->talla)
                             {{ $talla['descripcion'] }}
                         @endif
                     @endforeach
@@ -52,9 +52,7 @@
                     {{ $ropa->estado }}
                 </div>
 
-                <div class="boton mt-2">
-                    <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>
-                </div>
+                <a class="text-white boton mt-2" href="{{ route('ropas.index') }}"> Volver</a>
             </div>
         </div>
     </x-admin-layout>

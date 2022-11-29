@@ -6,9 +6,7 @@
                 <div class="my-5">
                     <h2 class="titulo">Editar Prenda</h2>
                 </div>
-                <div class="boton">
-                    <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>
-                </div>
+                <a class="text-white boton" href="{{ route('ropas.index') }}"> Volver</a>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -24,26 +22,28 @@
 
 
 
-                <form action="{{ route('ropas.update', $ropa->id) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('ropas.update', $ropa->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <div class="my-6 relative">
                         <figure>
-                            <img src="{{ Storage::url($ropa->imagenRef) }}" id="imgPreview" class="aspect-[16/9] w-full object-contain object-left">
+                            <img src="{{ Storage::url($ropa->imagenRef) }}" id="imgPreview"
+                                class="aspect-[16/9] w-full object-contain object-left">
                         </figure>
-    
+
                         <div class="absolute top-96 right-1/4">
-                            <label class="flex items-center px-4 py-2 bg-white rounded-lg cursor-pointer hover:bg-opacity-50">
-    
+                            <label
+                                class="flex items-center px-4 py-2 bg-white rounded-lg cursor-pointer hover:bg-opacity-50">
+
                                 <i class="fa-solid fa-camera mr-2"></i>
-    
+
                                 Actualizar Imagen
-                                <input type="file" accept="image/" name="imagenRef" onchange="previewImage(event, '#imgPreview')" class="hidden">
+                                <input type="file" accept="image/" name="imagenRef"
+                                    onchange="previewImage(event, '#imgPreview')" class="hidden">
                             </label>
                         </div>
-    
+
                     </div>
 
                     <label for="prenda" class="label">Prenda:</label>
@@ -67,7 +67,8 @@
                         value="{{ $ropa->stock }}" placeholder="Stock">
 
                     <label for="precio" class="label">Precio:</label>
-                    <textarea class="textarea  rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" min="1" step="any" style="height:150px"  name="precio" placeholder="Precio">{{ $ropa->precio }}</textarea>
+                    <textarea class="textarea  rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number"
+                        min="1" step="any" style="height:150px" name="precio" placeholder="Precio">{{ $ropa->precio }}</textarea>
 
                     <label for="talla" class="label">Talla:</label>
                     <select name="talla" id=""
@@ -91,12 +92,12 @@
         </div>
 
         <script>
-            function previewImage(event, querySelector){
+            function previewImage(event, querySelector) {
                 const input = event.target;
 
                 $imgPreview = document.querySelector(querySelector);
 
-                if(!input.files.length) return
+                if (!input.files.length) return
 
                 file = input.files[0];
 
@@ -104,5 +105,5 @@
                 $imgPreview.src = objectURL
             }
         </script>
-    </x-app-layout>
-@endrole
+        </x-app-layout>
+    @endrole

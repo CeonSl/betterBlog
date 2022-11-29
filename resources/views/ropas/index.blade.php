@@ -9,19 +9,19 @@
 
                     </div>
                     <div class="grid grid-cols-8">
-                        <div class="boton col-span-1 text-center">
-                            <a class="text-white " href="{{ route('ropas.create') }}" > Crear prenda</a>
-                        </div>
+                        <a href="{{ route('ropas.create') }}" class="boton col-span-1 text-center text-white">
+                            Crear prenda
+                        </a>
 
                         <style>
-                            .hoverIcon:hover{
-                               
-                            }
+                            .hoverIcon:hover {}
                         </style>
 
-                        <div class="col-span-2 col-start-8 grid justify-items-end mt-5 mr-2 hover:opacity-80 transition-all" style="color: Tomato;">
-                            <a href="{{route('prenda/pdf')}}" target="_blank">
-                                <i class="fa-regular fa-file-pdf fa-2xl  fa-bounce" style=" --fa-animation-duration: 1s; --fa-animation-iteration-count: 2;--fa-animation-timing: ease-in-out; animation-delay: 5s;" ></i>
+                        <div class="col-span-2 col-start-8 grid justify-items-end mt-5 mr-2 hover:opacity-80 transition-all"
+                            style="color: Tomato;">
+                            <a href="{{ route('prenda/pdf') }}" target="_blank">
+                                <i class="fa-regular fa-file-pdf fa-2xl  fa-bounce"
+                                    style=" --fa-animation-duration: 1s; --fa-animation-iteration-count: 2;--fa-animation-timing: ease-in-out; animation-delay: 5s;"></i>
                             </a>
                         </div>
                     </div>
@@ -92,7 +92,9 @@
                     @endforeach
                 </table>
 
-                {!! $ropas->links() !!}
+                <div class="my-2">
+                    {!! $ropas->links() !!}
+                </div>
                 <script>
                     function data() {
                         return {
@@ -112,8 +114,8 @@
                 </script>
 
                 <div x-data="data()" x-init="start()" x-transition>
-                    <div :hidden="open" class="boton my-5" x-transition @click="isOpen()">
-                        <a class="text-white transition-all duration-300" onclick="graficar()">Gráficos</a>
+                    <div :hidden="open" class="boton my-5 cursor-pointer" x-transition @click="isOpen()">
+                        <a class="text-white transition-all duration-300 " onclick="graficar()">Gráficos</a>
                     </div>
                     <div x-show="open" class="container transition-all duration-300" x-transition @click.away="close()">
                         <div class="jumbotron mt-10 ">
@@ -131,62 +133,61 @@
                             <script>
                                 function graficar() {
                                     $.get("prendas/indexAll", function(data, status) {
-                                        $.get("parametros/indexAll", function(dataPar, statusPar) {
-                                            var obj = JSON.parse(data);
+                                        var obj = JSON.parse(data);
 
-                                            var objParametro = JSON.parse(dataPar);
-                                            console.log(obj);
-                                            var tipos = [];
-                                            var valores = [];
-                                            var prendas = [];
-                                            var precios = [];
-                                            var stock = 0;
-                                            var precio = 0;
-                                            for (var x = 0; x < obj.length; x++) {
+                                        var prendas = [];
 
-                                                if (obj[x].prenda === ((x < obj.length - 1) ? (obj[x + 1].prenda) : false)) {
-                                                    console.log(obj[x].prenda + " " + x);
-                                                    console.log('entre')
-                                                    stock += obj[x].stock;
-                                                    console.log(stock);
-                                                } else if (obj[x].prenda === ((x > 1) ? (obj[x - 1].prenda) : false)) {
-                                                    console.log('entre al falso')
-                                                    stock += obj[x].stock;
-                                                    valores.push(stock);
-                                                    tipos.push(obj[x].prenda);
-                                                    stock = 0;
-                                                    console.log(valores);
-                                                    console.log(tipos);
-                                                }
+                                        var prendasSola = [];
+
+                                        var stocks = [];
+                                        var stock = 0;
+                                        var precios = [];
+                                        var precio = 0;
+                                        var divisor = 0;
+                                        var promedio = 0;
+
+                                        for (var i = 0; i < obj.length; i++) {
+                                            if (!(prendasSola.includes(obj[i].prenda))) {
+                                                prendasSola.push(obj[i].prenda);
 
                                             }
+                                        }
 
-                                            var divisor = 0;
-                                            var promedio = 0;
-
-                                            for (var x = 0; x < obj.length; x++) {
-
-                                                if (obj[x].prenda === ((x < obj.length - 1) ? (obj[x + 1].prenda) : false)) {
-                                                    precio += obj[x].precio;
+                                        for (var i = 0; i < prendasSola.length; i++) {
+                                            for (var j = 0; j < obj.length; j++) {
+                                                if (obj[j].prenda == prendasSola[i]) {
+                                                    stock += obj[j].stock;
+                                                    precio += obj[j].precio;
                                                     divisor++;
-                        
-                                                } else if (obj[x].prenda === ((x > 1) ? (obj[x - 1].prenda) : false)) {
-                                                    precio += obj[x].precio;
-                                                    divisor++;
-                                                    promedio = precio / divisor; 
+                                                    if (j == (obj.length - 1)) {
+                                                        stocks.push(stock);
+                                                        promedio = precio / divisor;
+                                                        precios.push(promedio);
+                                                        promedio = 0;
+                                                        precio = 0;
+                                                        divisor = 0;
+                                                    }
+                                                } else if (j == (obj.length - 1)) {
+                                                    console.log(obj[j].prenda + " ola")
+                                                    stocks.push(stock);
+                                                    promedio = precio / divisor;
                                                     precios.push(promedio);
-                                                    prendas.push(obj[x].prenda);
-                                                    precio = 0;
                                                     divisor = 0;
-                                                    console.log(precios);
-                                                    console.log(prendas);
+                                                    promedio = 0;
+                                                    precio = 0;
+                                                    stock = 0;
                                                 }
-
                                             }
+                                        }
 
-                                            generarGraficaBar(tipos, valores);
-                                            generarGraficaDona(prendas,precios);
-                                        })
+                                        console.log(prendasSola);
+                                        console.log(stocks);
+
+
+                                        console.log(precios);
+
+                                        generarGraficaBar(prendasSola, stocks);
+                                        generarGraficaDona(prendasSola, precios);
                                     })
 
                                 }
@@ -201,8 +202,27 @@
                                             datasets: [{
                                                 label: 'Unidades ',
                                                 data: valores,
-                                                borderWidth: 1
-                                            }]
+                                                borderWidth: 1,
+                                                backgroundColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(255, 159, 64, 1)',
+                                                    'rgba(255, 205, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                    'rgba(201, 203, 207, 1)'
+                                                ],
+                                                borderColor: [
+                                                    'rgb(255, 99, 132)',
+                                                    'rgb(255, 159, 64)',
+                                                    'rgb(255, 205, 86)',
+                                                    'rgb(75, 192, 192)',
+                                                    'rgb(54, 162, 235)',
+                                                    'rgb(153, 102, 255)',
+                                                    'rgb(201, 203, 207)'
+                                                ],
+                                            }],
+
                                         },
                                         options: {
                                             scales: {
@@ -217,7 +237,7 @@
 
 
                             <script>
-                                function generarGraficaDona(prendas,precios) {
+                                function generarGraficaDona(prendas, precios) {
                                     const ctx2 = document.getElementById('myChart2');
 
                                     new Chart(ctx2, {

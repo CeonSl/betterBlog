@@ -7,9 +7,7 @@
                 <div class="my-5">
                     <h2 class="titulo">Agregar Nueva Prenda</h2>
                 </div>
-                <div class="boton">
-                    <a class="text-white" href="{{ route('ropas.index') }}"> Volver</a>
-                </div>
+                    <a class="text-white boton" href="{{ route('ropas.index') }}"> Volver</a>
 
 
                 @if ($errors->any())
@@ -49,7 +47,7 @@
                                 <i class="fa-solid fa-camera mr-2"></i>
 
                                 Ingresa una imagen
-                                <input type="file" accept="image/" id="imagenRef" name="imagenRef"
+                                <input type="file" accept="image/*" id="imagenRef" name="imagenRef"
                                     onchange="previewImage(event, '#imagenRef')" class="hidden">
                             </label>
                         </div>

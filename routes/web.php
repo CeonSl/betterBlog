@@ -26,7 +26,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/', DashboardController::class)->name('dashboard');
 
    
     Route::get('payment/{id?}', [ PaymentController::class, 'show'])->name('payment.show');

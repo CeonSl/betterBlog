@@ -17,57 +17,56 @@
         $item->quantity = 1;
         $item->unit_price = $ropa->precio;
         $preference->items = [$item];
-
+        
         $preference->save();
         
     @endphp
 
 
-    <div class="w-full h-screen bg-gradient-to-br from-red-200 via-white to-blue-200 p-10">
-        <div class="flex justify-around">
-            <div class="jumbotron mt-0 flex-row w-4/12 justify-start p-2 bg-white">
-                <div class="grid grid-rows-2 grid-cols-4 shadow-sm p-2 bg-white">
-                    <div class="row-span-2 col-span-2 col-start-1 row-start-1"><img
-                            src="{{ Storage::url($ropa->imagenRef) }}" class="h-full w-full shadow-2xl" alt="">
-                    </div>
-                    <div class="row-span-1 text-center pt-4"><label class="block text-justify pl-5">Prenda:
-                            <strong>{{ $ropa->prenda }}</strong></label>
-                        <label class="block text-justify pl-5 pt-3"> Color: <strong>
-                                {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}</strong></label>
-                        <label class="block text-justify pl-5 pt-3"> Talla: <strong>
-                                {{ $tallas->get('descripcion', $tallas->get('descripcion', $ropa->talla)) }}</strong></label>
-
-                    </div>
-
-                    <div class="row-span-1 row-start-2 col-span-1 col-start-3 text-justify pl-5 pt-3 text-3xl relative">
-                        <label class="absolute bottom-0">Precio: <strong>S/. {{ $ropa->precio }}</strong></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="jumbotron mt-36 flex-col  w-2/12 h-1/2 bg-white p-3">
-                <div class="grid grid-rows-2 grid-cols-4 shadow rounded-lg p-3">
-                    <div class="col-span-1 row-span-2 row-start-1 col-start-1">
-                        <img src="{{ asset('img/mercadopago.png') }}" width="50px" alt="">
-                    </div>
-                    <div class="cho-container h-full ml-2 mt-2 col-span-3 row-span-2 row-start-1 col-start-2">
-
+    <div class="w-full h-screen bg-white p-10">
+        <div class="jumbotron m-6 ">
+            <div class="flex justify-around">
+                <div class="jumbotron mt-0 flex-row w-4/12 j p-2 bg-white">
+                    <div class="grid grid-rows-2 grid-cols-4 shadow-sm p-2 bg-white">
+                        <div class="row-span-2 col-span-2 col-start-1 row-start-1"><img
+                                src="{{ Storage::url($ropa->imagenRef) }}" class="h-full w-full shadow-2xl" alt="">
+                        </div>
+                        <div class="row-span-1 text-center pt-4"><label class="block text-justify pl-5">Prenda:
+                                <strong>{{ $ropa->prenda }}</strong></label>
+                            <label class="block text-justify pl-5 pt-3"> Color: <strong>
+                                    {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}</strong></label>
+                            <label class="block text-justify pl-5 pt-3"> Talla: <strong>
+                                    {{ $tallas->get('descripcion', $tallas->get('descripcion', $ropa->talla)) }}</strong></label>
+    
+                        </div>
+    
+                        <div class="row-span-1 row-start-2 col-span-1 col-start-3 text-justify pl-5 pt-3 text-3xl relative">
+                            <label class="absolute bottom-0">Precio: <strong>S/. {{ $ropa->precio }}</strong></label>
+                        </div>
+    
                     </div>
                 </div>
+    
+                <div class="jumbotron  w-2/12 h-1/2 bg-white p-3 ">
+                    <div class="grid grid-rows-2 grid-cols-4 shadow rounded-lg p-3 ">
+                        <div class="col-span-1 row-span-2 row-start-1 col-start-1">
+                            <img src="{{ asset('img/mercadopago.png') }}" width="50px" alt="">
+                        </div>
+                        <div class="cho-container h-full ml-2 mt-2 col-span-3 row-span-2 row-start-1 col-start-2">
+    
+                        </div>
+                    </div>
+                </div>
+    
             </div>
-        </div>
-
-        <div class="boton mt-10">
-            <a href="{{ route('dashboard') }}" class="text-white">Visualizar prendas</a>
+            <div class=" mt-10 grid grid-cols-8 ">
+                    <a href="{{ route('dashboard') }}" class="text-white boton col-span-1 col-start-2 text-center">Visualizar prendas</a>
+            </div>
         </div>
 
 
     </div>
-    <div class="w-full h-screen bg-gradient-to-br from-red-200 via-white to-blue-200 p-10">
 
-    </div>
-
-    // SDK MercadoPago.js V2
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
     <script>
