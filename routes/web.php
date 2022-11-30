@@ -58,5 +58,7 @@ Route::middleware([
     Route::get('parametros/indexAll', [RopaController::class, 'getJsonParametros'])->name('parametros/indexAll');
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/ropas', RopaController::class);
+    
+    Route::get('prenda/buscador', [RopaController::class, 'buscador'])->name('prenda/buscador');
     Route::get('prenda/pdf', [RopaController::class,'generarPdf'])->name('prenda/pdf');
 });

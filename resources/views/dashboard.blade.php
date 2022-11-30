@@ -5,7 +5,7 @@
             <div>
                 <h1 class="titulo flex justify-center m-0 jumbotron rounded-none p-8 ">Lista de Productos</h1>
             </div>
-            <div class="grid grid-cols-5 mx-2 ">
+            <div class="grid grid-cols-5 mx-2 mb-4 ">
                 @foreach ($ropas as $ropa)
                     <div class=" m-3 hover:opacity-95 hover:scale-110   transition-all  duration-300 ease-out ">
                         <div class=" transition-all p-1 h-full w-70 hover:bg-black">

@@ -13,8 +13,7 @@ class DashboardController extends Controller
         $tallas = NivelParametro::where('tipo', 'Talla')->get();
         $colors = NivelParametro::where('tipo', 'Color')->get();
         $ropas = Ropa::where('estado', 'activo')
-        ->orderBy('prenda', 'desc')
-        ->paginate(9);
+        ->orderBy('prenda', 'desc')->get();
 
         return view('dashboard', compact('ropas','colors','tallas'));
     }

@@ -1,7 +1,9 @@
 @role('Administrator')
     @section('title', 'Ropa')
     <x-admin-layout>
+
         <div class="container pb-10">
+           
             <div class="jumbotron mt-10">
                 <div id="main" class="scroll-mt-40">
                     <div class="my-5 ">
@@ -13,9 +15,7 @@
                             Crear prenda
                         </a>
 
-                        <style>
-                            .hoverIcon:hover {}
-                        </style>
+
 
                         <div class="col-span-2 col-start-8 grid justify-items-end mt-5 mr-2 hover:opacity-80 transition-all"
                             style="color: Tomato;">
@@ -24,6 +24,13 @@
                                     style=" --fa-animation-duration: 1s; --fa-animation-iteration-count: 2;--fa-animation-timing: ease-in-out; animation-delay: 5s;"></i>
                             </a>
                         </div>
+
+                    </div>
+
+                    <div class="my-2 mt-4 w-1/3">
+                        <input type="search" id="texto"
+                            class="form-control min-w-0 w-full px-3  text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            placeholder="Buscar" aria-label="Search" aria-describedby="button-addon2">
                     </div>
                 </div>
 
@@ -33,7 +40,7 @@
                     </div>
                 @endif
 
-                <table class="table table-bordered mt-3">
+                <table id="datatable" class="table table-bordered mt-3">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -47,9 +54,9 @@
                             <th width="280px">Opciones</th>
                         </tr>
                     </thead>
-                    @foreach ($ropas as $ropa)
-                        <tbody>
-                            <tr>
+                    {{-- @foreach ($ropas as $ropa) --}}
+                    <tbody id="tbody">
+                        {{-- <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $ropa->prenda }}</td>
                                 <td>{{ isset($ropa->tipoColor_id) ? $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) : '' }}
@@ -60,6 +67,7 @@
                                 <td>{{ $ropa->estado }}</td>
                                 <td>
                                     <div class="flex justify-around ">
+                                        {{ Storage::url($ropa->imagenRef) }}
                                         <img src="{{ Storage::url($ropa->imagenRef) }}" class="border-gray-500 border-2"
                                             width="150px" alt="">
                                     </div>
@@ -87,14 +95,14 @@
                                         </div>
                                     </form>
                                 </td>
-                            </tr>
-                        </tbody>
-                    @endforeach
+                            </tr> --}}
+                    </tbody>
+                    {{-- @endforeach --}}
                 </table>
 
-                <div class="my-2">
+                {{-- <div class="my-2">
                     {!! $ropas->links() !!}
-                </div>
+                </div> --}}
                 <script>
                     function data() {
                         return {
@@ -114,8 +122,11 @@
                 </script>
 
                 <div x-data="data()" x-init="start()" x-transition>
+                    <div class="fixed top-28 right-24 z-10" :hidden="open" x-transition @click.away="close()">
+                        <a href="#graficos"  > <button class="rounded-full bg-white px-6 py-2 shadow-2xl" ><i class="fa-solid fa-chart-simple"></i></button></a>
+                     </div>
                     <div :hidden="open" class="boton my-5 cursor-pointer" x-transition @click="isOpen()">
-                        <a class="text-white transition-all duration-300 " onclick="graficar()">Gráficos</a>
+                        <a class="text-white transition-all duration-300 " onclick="graficar()" id="graficos">Gráficos</a>
                     </div>
                     <div x-show="open" class="container transition-all duration-300" x-transition @click.away="close()">
                         <div class="jumbotron mt-10 ">
@@ -233,10 +244,7 @@
                                         }
                                     });
                                 }
-                            </script>
 
-
-                            <script>
                                 function generarGraficaDona(prendas, precios) {
                                     const ctx2 = document.getElementById('myChart2');
 
@@ -261,15 +269,88 @@
                                 }
                             </script>
                         </div>
-                        <div class="boton">
-                            <a href="#main" class="text-white">volver</a>
-                        </div>
-
+                        <a href="#main "  class="text-white boton">volver</a>
                     </div>
 
                 </div>
             </div>
         </div>
 
+        <script>
+
+            iniciarTabla()
+
+            function iniciarTabla(){
+                $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`, function(data,
+                        status) {
+                        var obj = JSON.parse(data);
+                        document.getElementById("tbody").innerHTML = llenarTabla(obj);
+                    });
+            }
+
+            function llenarTabla(data) {
+                var i = 0;
+                var str = '';
+                
+                data.map(item => {
+                    
+                    i++;
+                    str += `
+                    <tr>
+                                <td>${i}</td>
+                                <td>${item.prenda}</td>
+                                <td>${item.tipoColor_id}</td>
+                                <td>${item.stock}</td>
+                                <td>${item.precio}</td>
+                                <td>${item.talla}</td>
+                                <td>${item.estado}</td>
+                                <td>
+                                    <div class="flex justify-around ">
+                                        <img src="http://127.0.0.1:8000/storage/${item.imagenRef}" class="border-gray-500 border-2"
+                                            width="150px" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <form action="{{route('ropas.store')}}/${item.id}" method="POST">
+
+                                        <div class="flex justify-around">
+                                            <a class="boton-info h-10 w-10 flex-1"
+                                                href="{{ route('ropas.index') }}/${item.id}">
+                                                <img class="px-5" src="{{ asset('img/acercarse.png') }}"
+                                                    alt=""></a>
+
+                                            <a class="boton-edit h-10 w-10 flex-1 mx-2"
+                                                href="{{ route('ropas.index')}}/${item.id}/edit">
+                                                <img class="px-5" src="{{ asset('img/editar.png') }}" alt="">
+                                            </a>
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="boton-eliminar bg-red-400 h-10 w-10 flex-1">
+                                                <img class="px-5" src="{{ asset('img/eliminar.png') }}"
+                                                    alt=""></button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                    `;
+                })
+
+                return str;
+            }
+
+            // Keyupp
+            window.addEventListener("load", function() {
+                document.getElementById("texto").addEventListener("keyup", function() {
+                    $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`, function(data,
+                        status) {
+                        var obj = JSON.parse(data);
+                        document.getElementById("tbody").innerHTML = llenarTabla(obj);
+                    });
+                });
+            })
+
+        </script>
     </x-admin-layout>
 @endrole

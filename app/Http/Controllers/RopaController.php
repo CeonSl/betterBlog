@@ -132,4 +132,8 @@ class RopaController extends Controller
         return $pdf->setPaper('a4', 'landscape')->stream('Prendas Registradas.pdf');
     }
 
+    public function buscador(Request $request){
+        $ropas = json_encode(Ropa::where("prenda", "like", $request->texto."%")->get());
+        return response()->json($ropas, 200);
+    }
 }
