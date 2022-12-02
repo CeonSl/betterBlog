@@ -20,7 +20,7 @@
 }
 
 .boton {
-    @apply transition ease-in-out bg-blue-500 hover:-translate-y-1 hover:scale-100 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-md ;
+    @apply transition ease-in-out bg-blue-500 hover:-translate-y-1 hover:scale-100 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-md active:scale-50 ;
 }
 
 .titulo {
@@ -44,15 +44,15 @@
 }
 
 .boton-info {
-    @apply transition ease-in-out bg-blue-400 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full;
+    @apply transition ease-in-out bg-blue-400 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full active:scale-50;
 }
 
 .boton-edit {
-    @apply transition ease-in-out bg-green-400 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full;
+    @apply transition ease-in-out bg-green-400 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full active:scale-50;
 }
 
 .boton-eliminar {
-    @apply transition ease-in-out  hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full;
+    @apply transition ease-in-out  hover:-translate-y-1 hover:scale-105 hover:bg-indigo-400 duration-150 inline-block p-2 rounded-full active:scale-50;
 }
 
 .fondo {

@@ -1,17 +1,17 @@
 @section('title', 'Dashboard')
 <x-app-layout>
     <div class="header">
-        <div class="w-full h-full bg-white ">
+        <div class="w-full h-full  bg-gradient-to-r from-red-300 to-sky-300  ">
             <div>
-                <h1 class="titulo flex justify-center m-0 jumbotron rounded-none p-8 ">Lista de Productos</h1>
+                <h1 class="titulo flex justify-center m-0 jumbotron rounded-none p-8 bg-white ">Lista de Productos</h1>
             </div>
-            <div class="grid grid-cols-5 mx-2 mb-4 ">
+            <div class="grid grid-cols-5   place-items-center border-8 border-white">
                 @foreach ($ropas as $ropa)
-                    <div class=" m-3 hover:opacity-95 hover:scale-110   transition-all  duration-300 ease-out ">
-                        <div class=" transition-all p-1 h-full w-70 hover:bg-black">
+                    <div class=" p-2 m-2 hover:opacity-95 hover:scale-110  bg-white hover:bg-transparent rounded-lg  transition-all  duration-300 ease-out ">
+                        <div class=" transition-all p-1 h-full w-70 ">
                             <a href="{{ route('payment', $ropa->id) }}">
 
-                                <img src="{{ Storage::url($ropa->imagenRef) }}" class=" object-contain  overflow-hidden  transition-all " alt="">
+                                <img src="{{ Storage::url($ropa->imagenRef) }}" class="row-span-2  object-contain h-96 w-full  overflow-hidden  transition-all " alt="">
                                 <div class="grid grid-cols-2">
                                     <label class=" font-extralight  text-start pt-3 col-span-1 justify-items-start">{{ $ropa->prenda }}
                                         {{ $colors->get('descripcion', $colors->find($ropa->tipoColor_id)->descripcion) }}

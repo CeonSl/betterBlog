@@ -3,7 +3,7 @@
     <x-admin-layout>
 
         <div class="container pb-10">
-           
+
             <div class="jumbotron mt-10">
                 <div id="main" class="scroll-mt-40">
                     <div class="my-5 ">
@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     {{-- @foreach ($ropas as $ropa) --}}
-                    <tbody id="tbody">
+                    <tbody id="container">
                         {{-- <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $ropa->prenda }}</td>
@@ -99,10 +99,8 @@
                     </tbody>
                     {{-- @endforeach --}}
                 </table>
+                <div id="pagination" class="mt-3"></div>
 
-                {{-- <div class="my-2">
-                    {!! $ropas->links() !!}
-                </div> --}}
                 <script>
                     function data() {
                         return {
@@ -121,14 +119,18 @@
                     }
                 </script>
 
-                <div x-data="data()" x-init="start()" x-transition>
-                    <div class="fixed top-28 right-24 z-10" :hidden="open" x-transition @click.away="close()">
-                        <a href="#graficos"  > <button class="rounded-full bg-white px-6 py-2 shadow-2xl" ><i class="fa-solid fa-chart-simple"></i></button></a>
-                     </div>
-                    <div :hidden="open" class="boton my-5 cursor-pointer" x-transition @click="isOpen()">
-                        <a class="text-white transition-all duration-300 " onclick="graficar()" id="graficos">Gráficos</a>
+                <div x-data="data()" x-init="start()">
+                    <a href="#graficos">
+                        <div class="fixed top-28 right-24 z-10 transition-all  bg-white rounded-full active:scale-50  px-6 py-2 shadow-2xl hover:bg-opacity-70 focus:bg-black"
+                            :hidden="open" x-transition @click.away="close()">
+                            <button class=""><i class="fa-solid fa-chart-simple"></i></button>
+                        </div>
+                    </a>
+                    <div :hidden="open" class="boton my-5 cursor-pointer transition-all" x-transition
+                        @click="isOpen()">
+                        <a class="text-white " onclick="graficar()" id="graficos">Gráficos</a>
                     </div>
-                    <div x-show="open" class="container transition-all duration-300" x-transition @click.away="close()">
+                    <div x-show="open" class="container " @click.away="close()">
                         <div class="jumbotron mt-10 ">
                             <div class="">
                                 <div class="titulo text-left">Unidades totales por prenda</div>
@@ -269,7 +271,7 @@
                                 }
                             </script>
                         </div>
-                        <a href="#main "  class="text-white boton">volver</a>
+                        <a href="#main " class="text-white boton">volver</a>
                     </div>
 
                 </div>
@@ -277,27 +279,28 @@
         </div>
 
         <script>
+            llenarTabla();
 
-            iniciarTabla()
+            function llenarTabla() {
 
-            function iniciarTabla(){
-                $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`, function(data,
-                        status) {
-                        var obj = JSON.parse(data);
-                        document.getElementById("tbody").innerHTML = llenarTabla(obj);
-                    });
-            }
+                $(function() {
 
-            function llenarTabla(data) {
-                var i = 0;
-                var str = '';
-                
-                data.map(item => {
-                    
-                    i++;
-                    str += `
-                    <tr>
-                                <td>${i}</td>
+                    $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`,
+                        function(data,
+                            status) {
+                            var obj = JSON.parse(data);
+                            let container = $('#pagination');
+
+                            console.log(obj)
+                            container.pagination({
+                                dataSource: obj,
+                                pageSize: 5,
+                                callback: function(data, pagination) {
+                                    var dataHtml = '';
+                                    var i = 0;
+                                    $.each(data, function(index, item) {
+                                        i++;
+                                        dataHtml += `<tr> <td>${i}</td>
                                 <td>${item.prenda}</td>
                                 <td>${item.tipoColor_id}</td>
                                 <td>${item.stock}</td>
@@ -311,7 +314,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <form action="{{route('ropas.store')}}/${item.id}" method="POST">
+                                    <form action="{{ route('ropas.store') }}/${item.id}" method="POST">
 
                                         <div class="flex justify-around">
                                             <a class="boton-info h-10 w-10 flex-1"
@@ -320,7 +323,7 @@
                                                     alt=""></a>
 
                                             <a class="boton-edit h-10 w-10 flex-1 mx-2"
-                                                href="{{ route('ropas.index')}}/${item.id}/edit">
+                                                href="{{ route('ropas.index') }}/${item.id}/edit">
                                                 <img class="px-5" src="{{ asset('img/editar.png') }}" alt="">
                                             </a>
 
@@ -332,25 +335,84 @@
                                                     alt=""></button>
                                         </div>
                                     </form>
-                                </td>
-                            </tr>
-                    `;
-                })
+                                </td> </tr>`;
+                                    });
 
-                return str;
+                                    dataHtml += '';
+                                    console.log(dataHtml);
+                                    $("#container").html(dataHtml);
+                                }
+                            })
+                        });
+                });
+
             }
 
-            // Keyupp
             window.addEventListener("load", function() {
                 document.getElementById("texto").addEventListener("keyup", function() {
-                    $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`, function(data,
-                        status) {
-                        var obj = JSON.parse(data);
-                        document.getElementById("tbody").innerHTML = llenarTabla(obj);
+                    $(function() {
+
+                        $.get(`prenda/buscador?texto=${document.getElementById("texto").value}`,
+                            function(data,
+                                status) {
+                                var obj = JSON.parse(data);
+                                let container = $('#pagination');
+
+                                console.log(obj)
+                                container.pagination({
+                                    dataSource: obj,
+                                    pageSize: 5,
+                                    callback: function(data, pagination) {
+                                        var dataHtml = '';
+                                        var i = 0;
+                                        $.each(data, function(index, item) {
+                                            i++;
+                                            dataHtml += `<tr> <td>${i}</td>
+                                <td>${item.prenda}</td>
+                                <td>${item.tipoColor_id}</td>
+                                <td>${item.stock}</td>
+                                <td>${item.precio}</td>
+                                <td>${item.talla}</td>
+                                <td>${item.estado}</td>
+                                <td>
+                                    <div class="flex justify-around ">
+                                        <img src="http://127.0.0.1:8000/storage/${item.imagenRef}" class="border-gray-500 border-2"
+                                            width="150px" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <form action="{{ route('ropas.store') }}/${item.id}" method="POST">
+
+                                        <div class="flex justify-around">
+                                            <a class="boton-info h-10 w-10 flex-1"
+                                                href="{{ route('ropas.index') }}/${item.id}">
+                                                <img class="px-5" src="{{ asset('img/acercarse.png') }}"
+                                                    alt=""></a>
+
+                                            <a class="boton-edit h-10 w-10 flex-1 mx-2"
+                                                href="{{ route('ropas.index') }}/${item.id}/edit">
+                                                <img class="px-5" src="{{ asset('img/editar.png') }}" alt="">
+                                            </a>
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="boton-eliminar bg-red-400 h-10 w-10 flex-1">
+                                                <img class="px-5" src="{{ asset('img/eliminar.png') }}"
+                                                    alt=""></button>
+                                        </div>
+                                    </form>
+                                </td> </tr>`;
+                                        });
+
+                                        console.log(dataHtml);
+                                        $("#container").html(dataHtml);
+                                    }
+                                })
+                            });
                     });
                 });
             })
-
         </script>
     </x-admin-layout>
 @endrole
